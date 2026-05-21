@@ -106,6 +106,21 @@ cd ~/trading-bot
 python3 scripts/live_paper_tick.py
 ```
 
+One-command Ubuntu VM installer:
+
+```bash
+git clone https://github.com/jeevith-tech/trading-bot.git ~/trading-bot
+cd ~/trading-bot
+bash deploy/free-vm-install.sh
+```
+
+Check it later:
+
+```bash
+cd ~/trading-bot
+bash deploy/free-vm-status.sh
+```
+
 GitHub Actions is included for manual diagnostics, but GitHub-hosted runners are often blocked by Binance with `HTTP 451`, so GitHub Actions is not reliable for Binance-accurate 24/7 tracking. If you use GitHub Actions anyway, open `.github/workflows/free-paper-trading.yml` from the Actions tab and run it manually to test connectivity.
 
 For an elite one-trade-per-day validation:
