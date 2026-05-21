@@ -1,0 +1,13 @@
+[project]
+name = "institutional-crypto-bot"
+version = "0.1.0"
+description = "Risk-first crypto setup scanner and decision engine."
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.2",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

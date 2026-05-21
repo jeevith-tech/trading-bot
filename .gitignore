@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+
+reports/*
+!reports/live_paper/
+!reports/live_paper/**
+reports/live_paper_test/

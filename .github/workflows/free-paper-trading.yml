@@ -1,0 +1,46 @@
+name: Free Paper Trading
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: free-paper-trading
+  cancel-in-progress: false
+
+jobs:
+  paper-tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install bot
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Run v17 paper tick
+        run: |
+          python scripts/live_paper_tick.py
+
+      - name: Commit paper reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/live_paper
+          git diff --cached --quiet || git commit -m "Update live paper trading state [skip ci]"
+          git push
