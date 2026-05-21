@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import sys
 from dataclasses import replace
 from datetime import date, datetime, timedelta, timezone
@@ -99,7 +100,7 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     state = load_state(state_path, args)
-    client = BinanceFuturesClient(timeout=args.timeout)
+    client = BinanceFuturesClient(base_url=args.binance_base_url, timeout=args.timeout)
 
     state = finalize_stale_day(client, state, args, tz, today)
     if state.get("active_day") != str(today):
@@ -155,6 +156,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-long-if-symbol24-min", type=float, default=1.0)
     parser.add_argument("--lookback-days", type=int, default=30)
     parser.add_argument("--timeout", type=int, default=20)
+    parser.add_argument("--binance-base-url", default=os.environ.get("BINANCE_FUTURES_BASE_URL", "https://fapi.binance.com"))
     return parser.parse_args()
 
 

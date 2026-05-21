@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir -p reports/live_paper
           set +e
-          python scripts/live_paper_tick.py > reports/live_paper/last_run.log 2>&1
+          python scripts/live_paper_tick.py --binance-base-url https://www.binance.com > reports/live_paper/last_run.log 2>&1
           exit_code=$?
           cat reports/live_paper/last_run.log
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
