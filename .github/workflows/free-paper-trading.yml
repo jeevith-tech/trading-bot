@@ -38,13 +38,27 @@ jobs:
           python -m compileall institutional_bot scripts/live_paper_tick.py
 
       - name: Run v17 paper tick
+        id: paper_tick
+        continue-on-error: true
+        shell: bash
         run: |
-          python scripts/live_paper_tick.py
+          mkdir -p reports/live_paper
+          set +e
+          python scripts/live_paper_tick.py > reports/live_paper/last_run.log 2>&1
+          exit_code=$?
+          cat reports/live_paper/last_run.log
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+          exit 0
 
       - name: Commit paper reports
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/live_paper
           git diff --cached --quiet || git commit -m "Update live paper trading state [skip ci]"
           git push
+
+      - name: Fail if paper tick failed
+        if: steps.paper_tick.outputs.exit_code != '0'
+        run: exit 1
