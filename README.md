@@ -109,6 +109,12 @@ python3 scripts/live_paper_tick.py
 One-command Ubuntu VM installer:
 
 ```bash
+wget -O - https://raw.githubusercontent.com/jeevith-tech/trading-bot/main/deploy/free-vm-install.sh | bash
+```
+
+Alternative if you already cloned the repo:
+
+```bash
 git clone https://github.com/jeevith-tech/trading-bot.git ~/trading-bot
 cd ~/trading-bot
 bash deploy/free-vm-install.sh

@@ -56,7 +56,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now "$SERVICE_NAME.timer"
 
 echo "Running one immediate paper tick..."
-sudo systemctl start "$SERVICE_NAME.service" || true
+sudo systemctl start "$SERVICE_NAME.service"
 
 echo
 echo "Free VM paper runner installed."
