@@ -1,6 +1,11 @@
 name: Free Paper Trading
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "reports/live_paper/**"
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
