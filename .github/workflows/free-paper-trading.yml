@@ -6,8 +6,6 @@ on:
       - main
     paths-ignore:
       - "reports/live_paper/**"
-  schedule:
-    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:

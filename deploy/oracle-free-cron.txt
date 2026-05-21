@@ -1,0 +1,8 @@
+# Oracle Cloud Always Free / Ubuntu cron entry
+# Clone the repo into /home/ubuntu/trading-bot, then run:
+# crontab deploy/oracle-free-cron.txt
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+*/15 * * * * cd /home/ubuntu/trading-bot && /usr/bin/python3 scripts/live_paper_tick.py >> reports/live_paper/cron.log 2>&1

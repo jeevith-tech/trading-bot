@@ -99,9 +99,14 @@ Outputs:
 - Open positions: `reports/live_paper/open_positions.csv`
 - Simple dashboard text: `reports/live_paper/status.md`
 
-For no-laptop operation, push this repo to GitHub and enable Actions. The workflow at `.github/workflows/free-paper-trading.yml` wakes every 15 minutes, runs one paper tick, saves the simulated account state, and commits updated reports back into `reports/live_paper`.
+For no-laptop operation with exact Binance data, run this repo on a free cloud VM in a Binance-supported region. Oracle Cloud Always Free is the most practical free option. On the VM, schedule this command every 15 minutes:
 
-This is the closest genuinely free 24/7 mode: it is scheduled cloud execution, not a paid always-on VPS. GitHub scheduled jobs can sometimes start a few minutes late, but the bot only acts on completed 15-minute candles, so that delay is acceptable for paper tracking.
+```bash
+cd ~/trading-bot
+python3 scripts/live_paper_tick.py
+```
+
+GitHub Actions is included for manual diagnostics, but GitHub-hosted runners are often blocked by Binance with `HTTP 451`, so GitHub Actions is not reliable for Binance-accurate 24/7 tracking. If you use GitHub Actions anyway, open `.github/workflows/free-paper-trading.yml` from the Actions tab and run it manually to test connectivity.
 
 For an elite one-trade-per-day validation:
 
